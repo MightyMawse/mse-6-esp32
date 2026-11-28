@@ -1,10 +1,8 @@
 #pragma once
 #include "shared.h"
 #include "motor.h"
-#include "speaker.h"
 #include "ultrasonic.h"
 #include "imu.h"
-#include "servo.h"
 #include "actuator_base.h"
 
 // State machine states

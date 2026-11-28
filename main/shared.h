@@ -23,3 +23,7 @@ class Vec3{
     int16_t m_y = 0;
     int16_t m_z = 0;
 };
+
+int registerPin( int pin );
+void clearPin( int pin );
+bool checkPinUsed( int pin );

@@ -1,5 +1,4 @@
 #include "motor.h"
-#include "system.h"
 
 Motor::Motor( void ){
   m_name = "Motor";
@@ -12,12 +11,12 @@ Motor::Motor(String name){
 }
 
 void Motor::setInPin( int in1, int in2 ){
-  if(sys_registerPin(in1) == 0){
+  if(registerPin(in1) == 0){
     Serial.printf("Motor::setInPin() pin %d already in use...\n", in1);
     return;
   }
 
-  if(sys_registerPin(in2) == 0){
+  if(registerPin(in2) == 0){
     Serial.printf("Motor::setInPin() pin %d already in use...\n", in2);
     return;
   }
@@ -27,7 +26,7 @@ void Motor::setInPin( int in1, int in2 ){
 }
 
 void Motor::setEnPin( int en ){
-  if(sys_registerPin(en) == 0){
+  if(registerPin(en) == 0){
     Serial.printf("Motor::setEnPin() pin %d already in use...\n", en);
     return;
   }
