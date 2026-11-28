@@ -4,6 +4,14 @@ State machine behaviour
   - Upended
   - Crash
 
+Tested Systems:
+  - Motor X
+  - IMU X
+  - Ultrasonic X
+  - Servo
+  - Lights
+  - Speaker
+
 Functionality
   - motor run at throttle setting
   - steering within 45 degrees
@@ -12,6 +20,7 @@ Functionality
   - rely on web control panel
   - imu for orientation
   - ultrasonic sensing
+  - flashing leg strips
 
 Class structure
   - SensorBase
@@ -22,6 +31,7 @@ Class structure
     L Servo
   - Speaker
   - Control
+  - Lights
 
 SensorBase()
   L virtual init()

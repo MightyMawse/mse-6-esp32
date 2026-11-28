@@ -3,29 +3,40 @@
 #include "ultrasonic.h"
 #include "utils.h"
 #include "motor.h"
+#include "system.h"
 
 UltraSonic* pUltra;
 IMU* pIMU;
-Motor* pMotor;
+Motor* pMotor1;
+Motor* pMotor2;
 
 String accelerationLabels[3] = {"X", "Y", "Z"};
 String* pLabels;
+
 float distance = 0;
 actuator_event event;
-String cmd;
 
-int incomingByte = 0;
+void startupMessage();
 
 void setup() {
   Serial.begin(9600);
   delay(2000);
+  startupMessage();
 
   pLabels = accelerationLabels;
-  event.throttle = THROTTLE_ZERO;
+  
+  event.throttle = THROTTLE_HALF;
+  event.direction = REVERSE;
 
   //pUltra = new UltraSonic();
   //pIMU = new IMU();
-  pMotor = new Motor("Motor1"); 
+  pMotor1 = new Motor("Motor1"); 
+  pMotor1->setEnPin(23);
+  pMotor1->setInPin(16, 17);
+
+  pMotor2 = new Motor("Motor2");
+  pMotor2->setEnPin(22);
+  pMotor2->setInPin(18, 5);
 }
 
 void loop() {
@@ -43,30 +54,13 @@ void loop() {
   //delay(500);
 
   // Motor
-  pMotor->actuate(event);
+  pMotor1->actuate(event);
+  pMotor2->actuate(event);
+}
 
-  if (Serial.available() > 0) {
-    // read the incoming byte:
-    incomingByte = Serial.read();
-
-    // say what you got:
-    char incomingChar = (char)incomingByte;
-    cmd += incomingChar;
-
-    if(incomingChar == '$'){
-      if(cmd == "FULL$"){
-        event.throttle = THROTTLE_FULL;
-        Serial.println("Setting full throttle...");
-      }
-      else if(cmd == "STOP$"){
-        event.throttle = THROTTLE_ZERO;
-        Serial.println("Setting zero throttle...");
-      }
-      else if(cmd == "HALF$"){
-        event.throttle = THROTTLE_HALF;
-        Serial.println("Setting half throttle...");
-      }
-      cmd = "";
-    }
-  }
+void startupMessage(){
+  Serial.println("========================================");
+  Serial.println("  MSE-6 SERIES REPAIR DROID");
+  Serial.println("  Property of Mason McInerney @ Exponential Labs");
+  Serial.println("========================================");
 }

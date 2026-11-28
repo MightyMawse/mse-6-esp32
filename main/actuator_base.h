@@ -4,6 +4,7 @@
 struct actuator_event{
   float throttle;
   float range;
+  int direction; // > 0 forward, < 0 reverse
   // TODO: Add event properties as needed
 };
 
